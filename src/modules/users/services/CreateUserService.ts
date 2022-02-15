@@ -16,7 +16,7 @@ class CreateUserService {
     const userExists = await userRepository.findByEmail(email);
 
     if (userExists) {
-      throw new AppError('E-mail já cadastrado');
+      throw new AppError('E-mail já cadastrado', 400);
     }
 
     // criptografando senha do usuário
