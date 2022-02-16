@@ -33,6 +33,7 @@ class CreateSessionService {
       throw new AppError('Senha incorreta', 401);
     }
 
+    // criando token, que servirá para autenticação
     const token = sign({}, authConfig.jwt.secret, {
       subject: user.id,
       expiresIn: authConfig.jwt.expiresIn,
