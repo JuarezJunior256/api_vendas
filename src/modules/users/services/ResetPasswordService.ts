@@ -36,10 +36,10 @@ class ResetPasswordService {
 
     // buscando data de criação do token
     const tokenCreatedAt = userToken.created_at;
-    //comparando tempo de cadastro com tempo atual
-    // se for maior que dois dias, um novo token precisa ser gerado
+    // adicionando mais duas horas no tempo de criação do token
     const compareDate = addHours(tokenCreatedAt, 2);
 
+    // se for maior que duas horas o token é expirado
     if (isAfter(Date.now(), compareDate)) {
       throw new AppError('Token Expirado');
     }
