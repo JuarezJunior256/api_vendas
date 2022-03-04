@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity('customers')
-class Custormer {
+class Customer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -24,4 +24,4 @@ class Custormer {
   updated_at: Date;
 }
 
-export default Custormer;
+export default Customer;
