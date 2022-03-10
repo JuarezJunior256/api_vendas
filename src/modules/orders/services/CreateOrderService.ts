@@ -27,14 +27,17 @@ class CreateOrderService {
       throw new AppError('Cliente não encontrado');
     }
 
+    // procurando produtos
     const existsProducts = await productsRepository.findAllByIds(products);
 
     if (!existsProducts.length) {
       throw new AppError('Produtos não encontrados');
     }
 
+    // se existir produtos, pegar os id
     const existsProductsIds = existsProducts.map(product => product.id);
 
+    // procurando produtos que não existe na lista existsProductsId
     const checkInexistentProducts = products.filter(
       product => !existsProductsIds.includes(product.id),
     );
@@ -45,6 +48,7 @@ class CreateOrderService {
       );
     }
 
+    // conferindo quantidade do produto
     const quantityAvailable = products.filter(
       product =>
         existsProducts.filter(p => p.id === product.id)[0].quantity <
@@ -58,6 +62,7 @@ class CreateOrderService {
       );
     }
 
+    // criando objetos de produtos
     const serializedProducts = products.map(product => ({
       product_id: product.id,
       quantity: product.quantity,
@@ -71,6 +76,7 @@ class CreateOrderService {
 
     const { order_products } = order;
 
+    // atualizando quantidade dos produtos
     const updatedProductQuantity = order_products.map(product => ({
       id: product.product_id,
       quantity:
