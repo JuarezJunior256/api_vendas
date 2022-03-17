@@ -27,7 +27,7 @@ class CreateOrderService {
       throw new AppError('Cliente não encontrado');
     }
 
-    // procurando produtos
+    // confere na lista de produtos, se cada produto existe no banco
     const existsProducts = await productsRepository.findAllByIds(products);
 
     if (!existsProducts.length) {
